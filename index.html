@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maaf ya, Ginaku Sayang 🖤</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #c0392b;
+    --red-light: #e74c3c;
+    --red-dark: #7b241c;
+    --black: #0d0d0d;
+    --black-soft: #1a1a1a;
+    --cream: #f5e6d3;
+    --white: #fff8f5;
+    --gold: #c9a96e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--red);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(192,57,43,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.25s ease;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Particles background */
+  #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    z-index: 1;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(192,57,43,0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at 20% 20%, rgba(192,57,43,0.08) 0%, transparent 50%);
+  }
+
+  .rose-deco {
+    font-size: 5rem;
+    animation: float 4s ease-in-out infinite;
+    display: block;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 30px rgba(192,57,43,0.6));
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-18px) rotate(5deg); }
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+    position: relative;
+  }
+
+  .hero h1 span {
+    color: var(--red-light);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(245,230,211,0.6);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .scroll-hint {
+    margin-top: 3rem;
+    color: rgba(245,230,211,0.4);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: bounce 2s ease infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(8px); opacity: 0.8; }
+  }
+
+  /* DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 2rem;
+    margin: 1rem 0;
+    z-index: 1;
+    position: relative;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--red-dark), transparent);
+  }
+  .divider span { color: var(--red); font-size: 1.2rem; }
+
+  /* SECTIONS */
+  .section {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--red);
+    display: inline-block;
+  }
+
+  /* LETTER */
+  .letter-card {
+    background: linear-gradient(135deg, #1a0a0a 0%, #1a1212 100%);
+    border: 1px solid rgba(192,57,43,0.25);
+    border-radius: 2px;
+    padding: 3rem 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .letter-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+  .letter-card::after {
+    content: '"';
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: rgba(192,57,43,0.08);
+    line-height: 1;
+  }
+
+  .letter-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .letter-card p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: rgba(245,230,211,0.85);
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .letter-card p strong {
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  .letter-signature {
+    margin-top: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--red-light);
+  }
+
+  /* PROMISES */
+  .promises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1rem;
+  }
+
+  .promise-item {
+    background: rgba(192,57,43,0.06);
+    border: 1px solid rgba(192,57,43,0.2);
+    border-radius: 2px;
+    padding: 1.5rem 1.2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .promise-item:hover {
+    background: rgba(192,57,43,0.12);
+    border-color: rgba(192,57,43,0.5);
+    transform: translateY(-4px);
+  }
+
+  .promise-icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+  .promise-text { font-size: 0.88rem; color: rgba(245,230,211,0.8); line-height: 1.5; }
+
+  /* PHOTO SECTION */
+  .photos-section {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 2rem 5rem;
+  }
+
+  .photos-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    text-align: center;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .photos-subtitle {
+    text-align: center;
+    color: rgba(245,230,211,0.5);
+    font-size: 0.9rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .photo-upload-area {
+    border: 2px dashed rgba(192,57,43,0.35);
+    border-radius: 4px;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(192,57,43,0.03);
+    margin-bottom: 2rem;
+  }
+  .photo-upload-area:hover {
+    border-color: var(--red);
+    background: rgba(192,57,43,0.08);
+  }
+  .upload-icon { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+  .upload-text { color: rgba(245,230,211,0.7); font-size: 0.95rem; }
+  .upload-text strong { color: var(--red-light); }
+
+  #fileInput { display: none; }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .photo-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 2px;
+    border: 1px solid rgba(192,57,43,0.2);
+    cursor: pointer;
+    group: true;
+  }
+  .photo-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+  .photo-item:hover img { transform: scale(1.08); }
+  .photo-item .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,0,0,0.7) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: flex-end;
+    padding: 0.75rem;
+  }
+  .photo-item:hover .photo-overlay { opacity: 1; }
+  .photo-delete {
+    background: rgba(192,57,43,0.8);
+    border: none;
+    color: white;
+    border-radius: 2px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border: 1px solid rgba(192,57,43,0.3);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: none; border: none;
+    color: var(--cream);
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
+  /* FINAL */
+  .final {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 4rem 2rem 6rem;
+    border-top: 1px solid rgba(192,57,43,0.15);
+  }
+  .final .big-emoji { font-size: 4rem; display: block; margin-bottom: 1.5rem; animation: heartbeat 1.5s ease infinite; }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.15); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.1); }
+    56% { transform: scale(1); }
+  }
+  .final h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--cream);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .final p {
+    color: rgba(245,230,211,0.6);
+    font-size: 0.95rem;
+    max-width: 420px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* Petals animation */
+  .petal {
+    position: fixed;
+    top: -20px;
+    font-size: 1.2rem;
+    animation: falling linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+  @keyframes falling {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* FADE IN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    .letter-card { padding: 2rem 1.5rem; }
+    .photos-section { padding: 1rem 1rem 4rem; }
+    .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas id="particles"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <span class="rose-deco">🌹</span>
+  <h1>Maaf ya,<br><span>Sayang</span></h1>
+  <p class="hero-sub">Dari hati yang paling tulus</p>
+  <p class="scroll-hint">↓ scroll ↓</p>
+</section>
+
+<div class="divider"><span>♥</span></div>
+
+<!-- SURAT -->
+<section class="section fade-in">
+  <p class="section-label">Surat untukmu</p>
+  <div class="letter-card">
+    <h2>Kepada ginaku yang selalu ku sayang,</h2>
+    <p>
+      Saya tau gina mungkin lagi nda mau dengar apapun dari saya sekarang —
+      dan saya hormati itu. Tapi izinkan saya, lewat halaman ini,
+      <strong>sampaikan isi hatiku yang sudah saya pendam.</strong>
+    </p>
+    <p>
+      Kalau sikapku kemarin berlebihan dan bikin gina sakit hati,
+      <strong>saya minta maaf sebesar-besarnya.</strong> Betulan.
+      Nda ada sedikitpun niat di hatiku untuk menyakiti gina.
+      Saya cuma mau jujur, mau terbuka — tapi ternyata caraku belum tepat,
+      dan itu salahku.
+    </p>
+    <p>
+      Gina berhak dapat yang lebih baik dari itu. Gina berhak punya seseorang
+      yang bisa bertutur kata dengan cara yang nda bikin gina terluka.
+      <strong>Saya mau belajar jadi itu</strong> — kalau Gina masih mau kasih saya kesempatan dan pintu maafnya terbuka.
+    </p>
+    <p>
+      Apapun keputusanmu, aku tetap mau bilang:
+      makasih udah hadir. Makasih udah mau kenal aku.
+      Dan <strong>maaf</strong> — tulus, dari hati — atas semua yang udah mengecewakan.
+    </p>
+    <p>
+      Kalau gina mau cerita, mau marah saya, atau sekadar mau bilang letak kesalahanku —
+      saya siap mendengarkan. Tanpa bela diri. Cuma mendengar.
+    </p>
+    <div class="letter-signature">— Dengan sepenuh hati 🖤</div>
+  </div>
+</section>
+
+<div class="divider"><span>✦</span></div>
+
+<!-- JANJI -->
+<section class="section fade-in">
+  <p class="section-label">Janjiku buat gina</p>
+  <div class="promises-grid">
+    <div class="promise-item">
+      <span class="promise-icon">🌙</span>
+      <p class="promise-text">Akan belajar bicara dengan cara yang lebih baik</p>
+    </div>
+    <div class="promise-item">
+      <span class="promise-icon">🤍</span>
+      <p class="promise-text">Mendengarkan gina, bukan membandingkan atau membicarakan masa lalu lagi</p>
+    </div>
+    <div class="promise-item">
+      <span class="promise-icon">🔥</span>
+      <p class="promise-text">Nda bikin gina merasa terbebani lagi</p>
+    </div>
+    <div class="promise-item">
+      <span class="promise-icon">⚖️</span>
+      <p class="promise-text">menjaga perasaanmu sebagai prioritas</p>
+    </div>
+    <div class="promise-item">
+      <span class="promise-icon">🌹</span>
+      <p class="promise-text">Terus tumbuh dan berbenah diri</p>
+    </div>
+    <div class="promise-item">
+      <span class="promise-icon">🕊️</span>
+      <p class="promise-text">Menghormati ruang dan waktumu</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>♥</span></div>
+
+<!-- FOTO BERSAMA -->
+<section class="photos-section fade-in">
+  <p class="section-label" style="justify-content:center">Kenangan kita yang belum terwujud</p>
+  <h2>Foto Kita Berdua 📷</h2>
+  <p class="photos-subtitle">Saya sudah lama mengusahakan kita berdua. sebisa mungkin ini jadi hubungan ku yg tidak berakhir</p>
+
+  <div class="photo-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+    <span class="upload-icon">🖼️</span>
+    <p class="upload-text"><strong>Klik di sini</strong> foto kita<br>
+    <span style="font-size:0.8rem;opacity:0.6">JPG, PNG, WEBP — bisa pilih banyak sekaligus</span></p>
+  </div>
+  <input type="file" id="fileInput" accept="image/*" multiple>
+
+  <div class="photo-grid" id="photoGrid"></div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- FINAL -->
+<section class="final fade-in">
+  <span class="big-emoji">🖤</span>
+  <h2>Saya masih di sini.</h2>
+  <p>Masih menunggu dirimu. Nda kemana-mana. Nda ada dendam. Cuma ada maaf yang tulus dan sayang yang nda pernah berkurang.</p>
+</section>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+
+  // Particles canvas
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+  const particles = Array.from({length: 60}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.3,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    alpha: Math.random() * 0.5 + 0.1
+  }));
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(192, 57, 43, ${p.alpha})`;
+      ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  // Falling petals
+  function createPetal() {
+    const p = document.createElement('div');
+    p.classList.add('petal');
+    p.textContent = ['🌹','❤️','✨','🥀'][Math.floor(Math.random()*4)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.fontSize = (Math.random() * 0.8 + 0.6) + 'rem';
+    const dur = Math.random() * 8 + 6;
+    p.style.animationDuration = dur + 's';
+    p.style.animationDelay = Math.random() * 4 + 's';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), (dur + 4) * 1000);
+  }
+  setInterval(createPetal, 1200);
+
+  // Fade in on scroll
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Photo upload
+  const fileInput = document.getElementById('fileInput');
+  const photoGrid = document.getElementById('photoGrid');
+  const uploadArea = document.getElementById('uploadArea');
+
+  // Drag & drop
+  uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.style.borderColor = '#e74c3c'; });
+  uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor = ''; });
+  uploadArea.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadArea.style.borderColor = '';
+    handleFiles(e.dataTransfer.files);
+  });
+
+  fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+  function handleFiles(files) {
+    Array.from(files).forEach(file => {
+      if (!file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = e => addPhoto(e.target.result);
+      reader.readAsDataURL(file);
+    });
+    fileInput.value = '';
+  }
+
+  function addPhoto(src) {
+    const item = document.createElement('div');
+    item.className = 'photo-item';
+    item.innerHTML = `
+      <img src="${src}" alt="Kenangan kita" onclick="openLightbox('${src}')">
+      <div class="photo-overlay">
+        <button class="photo-delete" onclick="removePhoto(this)">Hapus</button>
+      </div>
+    `;
+    photoGrid.appendChild(item);
+  }
+
+  function removePhoto(btn) {
+    btn.closest('.photo-item').remove();
+  }
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+</script>
+</body>
+</html>
